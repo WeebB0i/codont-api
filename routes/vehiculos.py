@@ -2,7 +2,7 @@
 from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlmodel import Session, select
 from typing import Annotated, List
-from config.db import create_db_and_tables, SessionDep
+from config.db import crear_vehiculos, create_db_and_tables, SessionDep
 from models.usuario import Usuario
 from models.vehiculo import Vehiculo, VehiculoCrear
 
@@ -12,6 +12,7 @@ vehiculos = APIRouter()
 @vehiculos.on_event("startup")
 def on_startup():
     create_db_and_tables([Usuario.__table__, Vehiculo.__table__])
+    crear_vehiculos()
 
 @vehiculos.get("/vehiculos/", response_model=List[Vehiculo])
 def get_vehiculos(
