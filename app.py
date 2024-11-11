@@ -1,6 +1,6 @@
 import uvicorn
 from fastapi import FastAPI
-from pyngrok import ngrok
+# from pyngrok import ngrok
 from routes.vehiculos import vehiculos
 
 # Inicia el túnel Ngrok
