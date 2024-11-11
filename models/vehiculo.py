@@ -1,7 +1,6 @@
 # models/vehiculo.py
 from sqlmodel import SQLModel, Field
 from typing import Optional
-from sqlmodel import Session, create_engine
 
 class VehiculoBase(SQLModel):
     tipo_vehiculo: str = Field(max_length=30)

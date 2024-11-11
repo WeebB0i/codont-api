@@ -1,19 +1,14 @@
-# myapi/routers/vehiculos.py
-from fastapi import APIRouter, Depends, HTTPException, Query
-from sqlmodel import Session, select
+from fastapi import APIRouter, Query
+from sqlmodel import select
 from typing import Annotated, List
-from config.db import crear_vehiculos, create_db_and_tables, SessionDep
+from config.db import SessionDep
 from models.usuario import Usuario
 from models.vehiculo import Vehiculo, VehiculoCrear
 
 # Crear el router de FastAPI para vehículos
 vehiculos = APIRouter()
 
-@vehiculos.on_event("startup")
-def on_startup():
-    create_db_and_tables([Usuario.__table__, Vehiculo.__table__])
-    crear_vehiculos()
-
+# Crear un endpoint para obtener todos los vehículos
 @vehiculos.get("/vehiculos/", response_model=List[Vehiculo])
 def get_vehiculos(
     session: SessionDep,
@@ -26,6 +21,7 @@ def get_vehiculos(
     vehiculos = session.exec(select(Vehiculo).offset(offset).limit(limit)).all()
     return vehiculos
 
+# Endpoint para crear un nuevo vehículo
 @vehiculos.post("/vehiculos/", response_model=VehiculoCrear)
 def create_vehiculo(vehiculo: VehiculoCrear, session: SessionDep):
     """

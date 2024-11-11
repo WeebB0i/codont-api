@@ -1,18 +1,13 @@
 # myapi/routers/vehiculos.py
-from fastapi import APIRouter, Depends, HTTPException, Query
+from fastapi import APIRouter, HTTPException
 from models.comparativas import Comparativa, ComparativaResponse
-from sqlmodel import Session, select
-from typing import Annotated, List
-from config.db import crear_vehiculos, create_db_and_tables, SessionDep, get_session
-from models.usuario import Usuario
-from models.vehiculo import Vehiculo, VehiculoCrear
+from sqlmodel import select
+from typing import List
+from config.db import SessionDep
+from models.vehiculo import Vehiculo
 
 # Crear el router de FastAPI para vehículos
 comparativas = APIRouter()
-
-@comparativas.on_event("startup")
-def on_startup():
-    create_db_and_tables([Usuario.__table__, Vehiculo.__table__, Comparativa.__table__])
 
 @comparativas.get("/comparativas/", response_model=List[ComparativaResponse])
 def listar_comparativas(session: SessionDep):
