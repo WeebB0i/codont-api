@@ -1,6 +1,7 @@
+from routes import comparativas
 import uvicorn
 from fastapi import FastAPI
-from pyngrok import ngrok
+# from pyngrok import ngrok
 from routes.vehiculos import vehiculos
 
 # Inicia el túnel Ngrok
@@ -10,4 +11,5 @@ from routes.vehiculos import vehiculos
 app = FastAPI()
 
 app.include_router(vehiculos)
+app.include_router(comparativas)
 
