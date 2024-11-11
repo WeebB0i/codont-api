@@ -9,6 +9,8 @@ class VehiculoBase(SQLModel):
     modelo: str = Field(max_length=50)
     anio: int
     consumo_combustible: float
+    capacidad_carga: int
+    tipo_combustible: str = Field(max_length=50)
 
 class Vehiculo(VehiculoBase, table=True):
     __tablename__ = "vehiculo"
