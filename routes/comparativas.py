@@ -15,39 +15,39 @@ def on_startup():
     create_db_and_tables([Usuario.__table__, Vehiculo.__table__, Comparativa.__table__])
 
 @comparativas.get("/comparativas/", response_model=List[ComparativaResponse])
-def listar_comparativas(session: SessionDep,
-    offset: int = 0,
-    limit: Annotated[int, Query(le=100)] = 100, ):
+def listar_comparativas(session: SessionDep):
     """
     Listar todas las comparativas de vehículos.
     """
-    # comparativas = session.exec(select(Comparativa)).all()
-    # lista_comparativas = []
+    comparativas = session.exec(select(Comparativa)).all()
+    lista_comparativas = []
     
-    # for comparativa in comparativas:
-    #     vehiculo_1 = session.exec(select(Vehiculo).where(Vehiculo.vehiculo_id == comparativa.vehiculo_id_1)).first()
-    #     vehiculo_2 = session.exec(select(Vehiculo).where(Vehiculo.vehiculo_id == comparativa.vehiculo_id_2)).first()
+    for comparativa in comparativas:
+        vehiculo_id_1 = session.exec(select(Vehiculo).where(Vehiculo.vehiculo_id == comparativa.vehiculo_id_1)).first()
+        vehiculo_id_2 = session.exec(select(Vehiculo).where(Vehiculo.vehiculo_id == comparativa.vehiculo_id_2)).first()
         
         
-        # comparacion_resultado = ComparativaResponse(
-        #     comparativa_id=comparativa.comparativa_id,
-        #     vehiculo_1={
-        #         "marca": vehiculo_1.marca,
-        #         "modelo": vehiculo_1.modelo,
-        #         "anio": vehiculo_1.anio,
-        #         "eficiencia": vehiculo_1.eficiencia,
-        #     },
-        #     vehiculo_2={
-        #         "marca": vehiculo_2.marca,
-        #         "modelo": vehiculo_2.modelo,
-        #         "anio": vehiculo_2.anio,
-        #         "eficiencia": vehiculo_2.eficiencia,
-        #     }
-        # )
+        comparacion_resultado = ComparativaResponse(
+            comparativa_id=comparativa.comparativa_id,
+            vehiculo_id_1={
+                "id": vehiculo_id_1.vehiculo_id,
+                "marca": vehiculo_id_1.marca,
+                "modelo": vehiculo_id_1.modelo,
+                "anio": vehiculo_id_1.anio,
+                "eficiencia": vehiculo_id_1.eficiencia,
+            },
+            vehiculo_id_2={
+                "id": vehiculo_id_2.vehiculo_id,
+                "marca": vehiculo_id_2.marca,
+                "modelo": vehiculo_id_2.modelo,
+                "anio": vehiculo_id_2.anio,
+                "eficiencia": vehiculo_id_2.eficiencia,
+            }
+        )
         
-        # lista_comparativas.append(comparacion_resultado)
+        lista_comparativas.append(comparacion_resultado)
     
-    # return lista_comparativas
+    return lista_comparativas
 
 @comparativas.post("/comparativas/", response_model=Comparativa)
 def crear_comparativa(
