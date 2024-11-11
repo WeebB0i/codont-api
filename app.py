@@ -1,4 +1,4 @@
-from routes import comparativas
+from routes.comparativas import comparativas
 import uvicorn
 from fastapi import FastAPI
 # from pyngrok import ngrok
