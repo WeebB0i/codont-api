@@ -30,6 +30,10 @@ def listar_comparativas(session: SessionDep):
                 "modelo": vehiculo_id_1.modelo,
                 "anio": vehiculo_id_1.anio,
                 "eficiencia": vehiculo_id_1.eficiencia,
+                "tipo_combustible": vehiculo_id_1.tipo_combustible,
+                "capacidad_carga": vehiculo_id_1.capacidad_carga, 
+                "tipo_vehiculo": vehiculo_id_1.tipo_vehiculo,
+                "consumo_combustible": vehiculo_id_1.consumo_combustible,
             },
             vehiculo_id_2={
                 "id": vehiculo_id_2.vehiculo_id,
@@ -37,6 +41,11 @@ def listar_comparativas(session: SessionDep):
                 "modelo": vehiculo_id_2.modelo,
                 "anio": vehiculo_id_2.anio,
                 "eficiencia": vehiculo_id_2.eficiencia,
+                "tipo_combustible": vehiculo_id_2.tipo_combustible,
+                "capacidad_carga": vehiculo_id_2.capacidad_carga, 
+                "tipo_vehiculo": vehiculo_id_2.tipo_vehiculo, 
+                "consumo_combustible": vehiculo_id_1.consumo_combustible,
+
             }
         )
         
