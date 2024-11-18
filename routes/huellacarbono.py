@@ -10,16 +10,7 @@ async def calculate_carbon_footprint(huellaCarbono: HuellaCarbonoCrear, session:
     indice_eficiencia = huellaCarbono.indice_eficiencia
     tipo_combustible = huellaCarbono.tipo_combustible
 
-    # Example calculation (values are illustrative)
-    if tipo_combustible == "gasolina":
-        emission_factor = 2.31  # kg CO2 per liter
-    elif tipo_combustible == "diesel":
-        emission_factor = 2.68  # kg CO2 per liter
-    else:
-        return {"error": "Unsupported fuel type"}
-
-    fuel_consumed = kilometros_recorridos / indice_eficiencia
-    carbon_footprint = fuel_consumed * emission_factor
+    carbon_footprint = kilometros_recorridos * indice_eficiencia
 
     huellaCarbono = HuellaCarbono(
         kilometros_recorridos=kilometros_recorridos,
@@ -27,7 +18,6 @@ async def calculate_carbon_footprint(huellaCarbono: HuellaCarbonoCrear, session:
         tipo_combustible=tipo_combustible,
         huella_carbono=carbon_footprint
     )
-
     
     session.add(huellaCarbono)
     session.commit()

@@ -9,6 +9,7 @@ class HuellaCarbonoBase(SQLModel):
 class HuellaCarbono(HuellaCarbonoBase, table=True):
     __tablename__ = "huella_carbono"
     huella_carbono_id: int = Field(default=None, primary_key=True)
+    huella_carbono: float
 
 class HuellaCarbonoCrear(HuellaCarbonoBase):
     class Config:
