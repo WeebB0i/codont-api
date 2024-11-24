@@ -1,4 +1,7 @@
 # Base de datos SQLite
 basededatos.db
 __pycache__
+
+# Ficheros de configuración
 .venv
+.env
