@@ -2,12 +2,17 @@ from typing import Annotated
 
 from sqlmodel import create_engine, SQLModel, Session
 from fastapi import Depends
-
+from config import config
+from config.config import settings
 from models.vehiculo import Vehiculo
+from functools import lru_cache
 
+@lru_cache
+def get_settings():
+    return config.Settings()
 
-sqlite_file_name = "basededatos.db"
-sqlite_url = f"sqlite:///{sqlite_file_name}"
+DATABASE_URL = settings.BASE_DE_DATOS
+sqlite_url = f"sqlite:///{DATABASE_URL}"
 
 connect_args = {"check_same_thread": False}
 engine = create_engine(sqlite_url, connect_args=connect_args)

@@ -5,7 +5,10 @@ from config.db import SessionDep
 huellacarbono = APIRouter()
 
 @huellacarbono.post("/calcular-co2", response_model=HuellaCarbono)
-async def calculate_carbon_footprint(huellaCarbono: HuellaCarbonoCrear, session: SessionDep):
+async def calcular_huella_carbono(huellaCarbono: HuellaCarbonoCrear, session: SessionDep):
+    """
+    Calcula la huella de carbono a partir de los valores ingresados.
+    """
     kilometros_recorridos = huellaCarbono.kilometros_recorridos
     indice_eficiencia = huellaCarbono.indice_eficiencia
     tipo_combustible = huellaCarbono.tipo_combustible
@@ -27,7 +30,10 @@ async def calculate_carbon_footprint(huellaCarbono: HuellaCarbonoCrear, session:
 
 
 @huellacarbono.get("/calcular-co2/{id}", response_model=HuellaCarbono)
-async def get_carbon_footprint( id: int, session: SessionDep):
+async def obtener_huella_carbono( id: int, session: SessionDep):
+    """
+    Obetener la huella de carbono por su ID.
+    """
     huellaCarbono = session.query(HuellaCarbono).filter(HuellaCarbono.huella_carbono_id == id).first()
     if huellaCarbono is None:
         return {"error": "Huella de carbono not found"}
