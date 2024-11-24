@@ -31,13 +31,14 @@ async def calcular_huella_carbono(huellaCarbono: HuellaCarbonoCrear, session: Se
     # Usar el modelo generativo para obtener el resultado
     model = genai.GenerativeModel("gemini-1.5-pro-latest")
     prompt = f"""
-    Analiza los datos ingresados y proporciona un párrafo con los hallazgos o conclusiones, adicional haz una lista de vehiculos con mejores alternativas. todo en formato markdown.
+    Analiza los datos ingresados y proporciona un párrafo con los hallazgos o conclusiones, adicional haz una lista de las cosas que se deberían tener en cuenta para disminuir la huella de carbono y adicional haz una estimación de costos en pesos Colombianos teniendo en cuenta lo que comunmente consume un vehiculo con el tipo de combustible indicado. todo en formato markdown.
 
     Kilómetros recorridos: {kilometros_recorridos} 
     Índice de eficiencia: {indice_eficiencia} 
     Huella de carbono generada: {carbon_footprint} gramos de CO2 generados
+    Tipo de combustible: {tipo_combustible}
 
-    Para que lo tengas en cuenta, el calculo de la huella de barcono se genera a partir de los kilometros recorridos y la eficiencia del vehiculo, se hace mendiante una multiplicación y el resultado es la cantidad de CO2 que se emite al ambiente en krilogramos.
+    Para que lo tengas en cuenta, el calculo de la huella de barcono se genera a partir de los kilometros recorridos y la eficiencia del vehiculo, se hace mendiante una multiplicación y el resultado es la cantidad de CO2 que se emite al ambiente en kilogramos.
     """
 
     response = model.generate_content(prompt)
